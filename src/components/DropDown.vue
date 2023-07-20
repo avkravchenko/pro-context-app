@@ -42,8 +42,6 @@
 </template>
 
 <script>
-import store from "@/store";
-
 export default {
   name: "Dropdown",
   props: ["list", "listIndex"],
@@ -54,6 +52,8 @@ export default {
       if (newQuantity < 0) {
         newQuantity = 0;
       }
+
+      newQuantity = +newQuantity;
 
       this.$store.commit("changeQuantity", {
         listIndex,

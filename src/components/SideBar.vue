@@ -62,6 +62,7 @@ export default {
   top: -0.5px;
 }
 .sidebar {
+  align-self: flex-start;
   width: 100%;
   max-width: 350px;
   min-height: 100vh;

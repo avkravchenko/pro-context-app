@@ -90,5 +90,31 @@ export default createStore({
       });
       list.complete = !allClicked;
     },
+    decreaseQuantity(state, { listIndex, itemIndex }) {
+      state.navigation[listIndex].subnav[itemIndex].quantity -= 1;
+    },
+    consolidateAndShuffleColors(state, listIndex) {
+      const list = state.navigation[listIndex];
+      const consolidatedItem = {
+        title: `${list.title} - Consolidated`,
+        clicked: false,
+        quantity: 0,
+        color: null,
+      };
+
+      list.subnav.forEach((item) => {
+        consolidatedItem.quantity += item.quantity;
+        if (!consolidatedItem.color) consolidatedItem.color = item.color;
+      });
+
+      const colors = list.subnav.map((item) => item.color);
+      for (let i = colors.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [colors[i], colors[j]] = [colors[j], colors[i]];
+      }
+
+      list.subnav = [consolidatedItem];
+      list.complete = false;
+    },
   },
 });
